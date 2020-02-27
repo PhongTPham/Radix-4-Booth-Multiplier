@@ -56,6 +56,69 @@ component ControlMOdule
         shftCtrl:OUT std_logic;
         mathCtrl:OUT std_logic_vector(1 downto 0);
         writeCtrlReg:OUT std_logic_vector(1 downto 0);
-        Immediate:OUT std_logic);
-End Component
+        writeCtrlIn:OUT std_logic_vector(2 downto 0);
+        Immediate:OUT std_logic;
+        Cease:OUT std_logic);
+End Component;
+
+Component RegisterMemory
+    port(clock:IN std_logic;
+        writeCtrlIn:IN std_logic_vector(2 downto 0);
+        writeCtrlReg:IN std_logic_vector(1 downto 0);
+        MathData:IN std_logic_vector(30 downto 0);
+        Immediate:IN std_logic_vector(30 downto 0);
+        Racc:OUT std_logic_vector(30 downto 0);
+        Radd: OUT std_logic_vector(30 downto 0);
+        Bplus:OUT std_logic_vector(30 downto 0));
+End Component;
+
+Component CheckModule
+    port(Racc:IN std_logic_vector(30 down to 0);
+        Rselect:OUT std_logic_vector(1 downto 0));
+Add(01 +B,10 -B,00 0)
+End Component;
+
+Component ShifterModule
+    port(Racc:IN std_logic_vector(30 downto 0);
+        shftCtrl:IN std_logic;
+        sout:OUT std_logic_vector(30 downto 0));
+End Component;
+
+Component InvertModule
+    port(Bplus:IN std_logic_vector(30 downto 0);
+        Iout:OUT std_logic_vector(30 downto 0));
+End Component;
+
+signal Racc, Radd, Bplus, Sout, Aout, Iout, MathData, immediate, PC:std_logic_vector(30 downto 0);
+signal writeCtrlREg, Rselect, MathCtrl:std_logic_vector(1 downto 0);
+signal ShftCtrl, cease:std_logic;
+
+begin
+
+Program:ProgramCounter Port Map(clk, cease, reset, PC);
+Instruction: InstructionMemory Port Map(PC, Instruct);
+Control:ControlModule Port Map(Instruct, Rselect, ShftCtrl, MathCtrl, WriteCtrlReg, writeCtrlIn, Immediate, cease);
+Registers:RegisterMemory Port Map(clk, writeCtrlIn, writeCtrlReg, MathData, Immediate, Racc, Radd, Bplus);
+Check:CheckModule Port Map(Racc, Rselect);
+Adder:AdderModule Port Map(Radd, Racc, Aout);
+Shifter:ShifterModule Port Map(Racc, shftCtrl, Sout);
+Invert:InvertModule Port Map(Bplus, Iout);
+
+process(mathCtrl, Sout, Aout, Iout)
+begin 
+    case mathCtrl is 
+        when "00" => MathData <= "0000000000000000000000000000000"; 
+        when "01" => MathData <= Sout; 
+        when "10" => MathData <= Aout; 
+        when others => MathData <= lout;
+    end case; 
+end process; 
+
+
+-- Outputs the lower 17 bits of the accumulator on the LEDs 
+LEDouts <= Racc(16 downto 0); 
+
+end Behavioral; 
+
+
 
