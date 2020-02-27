@@ -40,7 +40,7 @@ Component ProgramCounter
     port(clock:IN std_logic;
         cease:IN std_logic; --Signals the program is over
         reset:IN std_logic; --Resets the count to 0
-        PC:OUT std_logic_vector(30 downto0));   --The current count
+        PC:OUT std_logic_vector(30 downto 0));   --The current count
 End Component;
 
 --Contains the program
