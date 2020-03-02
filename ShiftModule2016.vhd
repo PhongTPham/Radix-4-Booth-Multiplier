@@ -31,4 +31,4 @@ begin
     end if; 
 end process; 
         
-end behavioral;
+end Behavioral;
