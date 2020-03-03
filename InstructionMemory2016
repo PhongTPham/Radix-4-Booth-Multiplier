@@ -1,0 +1,78 @@
+-- Company: Computer Architecture 
+-- Engineer: Richard Arkusinski 
+-- Create Date: 10:22:26 03/02/2016 
+-- Design Name: 
+-- Module Name: InstructionMemory - Behavioral 
+-- Project Name: Booths Hardware 
+-- Description: Outputs an instruction for each program count. 
+library IEEE; 
+use IEEESTD_LOGIC_1164.ALL;
+
+entity InstructionMemory is 
+    Port(PC in STD_LOGIC_VECTOR (30 downto 0); 
+        Instruct : out STD LOGIC VECTOR (2 downto 0)); 
+End InstructionMemory; 
+
+architecture Behavioral of InstructionMemory is 
+
+begin 
+
+process(PC) 
+begin
+    case PC is 
+        when "0000000000000000000000000000000" => Instruct <= "000"; -- Load A 
+        when "0000000000000000000000000000001" => Instruct <= "001"; -- Load B 
+        when "0000000000000000000000000000010" => Instruct <= "010"; -- Invert
+        when "0000000000000000000000000000011" => Instruct <= "011"; -- Shift Left to create pad bit 
+        when "0000000000000000000000000000100" => Instruct <= "101"; -- Check1 
+        when "0000000000000000000000000000101" => Instruct <= "110"; -- Add1 
+        when "0000000000000000000000000000110" => Instruct <= "100"; -- Shift1 
+        when "0000000000000000000000000000111" => Instruct <= "101"; -- Check2 
+        when "0000000000000000000000000001000" => Instruct <= "110"; -- Add2 
+        when "0000000000000000000000000001001" => Instruct <= "100"; -- Shift2 
+        when "0000000000000000000000000001010" => Instruct <= "101"; -- Check3 
+        when "0000000000000000000000000001011" => Instruct <= "110"; -- Add3 
+        when "0000000000000000000000000001100" => Instruct <= "100"; -- Shift3 
+        when "0000000000000000000000000001101" => Instruct <= "101"; -- Check4 
+        when "0000000000000000000000000001110" => Instruct <= "110"; -- Add4 
+        when "0000000000000000000000000001111" => Instruct <= "100"; -- Shift4 
+        when "0000000000000000000000000010000" => Instruct <= "101"; -- Check5 
+        when "0000000000000000000000000010001" => Instruct <= "110"; -- Add5 
+        when "0000000000000000000000000010010" => Instruct <= "100"; -- Shift5 
+        when '0000000000000000000000000010011" => Instruct <= "101"; -- Check6 
+        when "0000000000000000000000000010100" => Instruct <= "110"; -- Add6 
+        when "0000000000000000000000000010101" => Instruct <= "100"; -- Shift6 
+        when "0000000000000000000000000010110" => Instruct <= "101"; -- Check7 
+        when "0000000000000000000000000010111" => Instruct <= "110"; -- Add7 
+        when "0000000000000000000000000011000" => Instruct <= "100"; -- Shift7 
+        when "0000000000000000000000000011001" => Instruct <= "101"; -- Check8 
+        when "0000000000000000000000000011010" => Instruct <= "110"; -- Add8 
+        when "0000000000000000000000000011011" => Instruct <= "100"; -- Shift8 
+        when "0000000000000000000000000011100" => Instruct <= "101"; -- Check9 
+        when "0000000000000000000000000011101" => Instruct <= "110"; -- Add9 
+        when "0000000000000000000000000011110" => Instruct <= "100"; -- Shift9 
+        when "0000000000000000000000000011111" => Instruct <= "101"; -- Check10 
+        when "0000000000000000000000000100000" => Instruct <= "110"; -- Add10 
+        when "0000000000000000000000000100001" => Instruct <= "100"; -- Shift10 
+        when "0000000000000000000000000100010" => Instruct <= "101"; -- Check11 
+        when "0000000000000000000000000100011" => Instruct <= "110"; -- Add11 
+        when "0000000000000000000000000100100" => Instruct <= "100"; -- Shift11 
+        when "0000000000000000000000000100101" => Instruct <= "101"; -- Checkl2 
+        when "0000000000000000000000000100110" => Instruct <= "110"; -- Add12 
+        when "0000000000000000000000000100111" => Instruct <= "100"; -- Shift12 
+        when "0000000000000000000000000101000" => Instruct <= "101"; -- Checkl3 
+        when "0000000000000000000000000101001" => Instruct <= "110"; -- Add13 
+        when "0000000000000000000000000101010" => Instruct <= "100"; -- Shift13 
+        when "0000000000000000000000000101011" => Instruct <= "101"; -- Check14 
+        when "0000000000000000000000000101100" => Instruct <= "110"; -- Add14 
+        when "0000000000000000000000000101101" => Instruct <= "100"; -- Shift14 
+        when "0000000000000000000000000101110" => Instruct <= "101"; -- Checkl5 
+        when "0000000000000000000000000101111" => Instruct <= "110"; -- Add15 
+        when "0000000000000000000000000110000" => Instruct <= "100"; -- Shift15 
+        when "0000000000000000000000000110001" => Instruct <= "100"; -- Shift to get rid of pad bit 
+        when others => Instruct <= "111"; -- Cease program 
+    end case; 
+end process;
+
+end Behavioral; 
+
