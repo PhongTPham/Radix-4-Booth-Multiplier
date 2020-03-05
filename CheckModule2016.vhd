@@ -1,8 +1,8 @@
 ----------------------------------------------------
---Company: Walla Walla University Computer Architecture
---Engineer: Christian & Phong
+--Company: Computer Architecture
+--Engineer: Richard Arkusinki
 --
---Create Date:
+--Create Date: 14:11:21 02/26/2016
 --Design Name:
 --Module Name: CheckModule - Behavioral
 --Project Name: Booth's Radix-4 Hardware
