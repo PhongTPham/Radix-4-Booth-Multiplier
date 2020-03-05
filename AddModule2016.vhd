@@ -11,7 +11,7 @@ use ieee.numeric_std.all;
 
 entity AdderModule is 
     port(Radd: IN std_logic_vector(30 downto 0); --Add Register 
-    Racc: IN std_logic_vector(30 downto 0); --Accemulator register 
+    Racc: IN std_logic_vector(30 downto 0); --Accumulator register 
     Aout: OUT std_logic_vector(30 downto 0)); --Output 
 end AdderModule; 
 
