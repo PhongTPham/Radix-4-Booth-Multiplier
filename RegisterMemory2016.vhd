@@ -13,7 +13,7 @@ use IEEE.STD LOGIC 1164.ALL;
 
 entity RegisterMemory is
 port(clock: IN std_logic;
-	 writeCtrlln: IN std_logic_vector(2 downto 0); --Selects which signal to write 
+	writeCtrlln: IN std_logic_vector(2 downto 0); --Selects which signal to write 
 	writeCtrlReg: IN std_logic_vector(1 downto 0);--Selects which register to write to 
 	MathData: IN std_logic_vector(30 downto 0); --Signal from math modules 
 	Immediate: IN std_logic_vector(30 downto 0); --Immediate data to load 
