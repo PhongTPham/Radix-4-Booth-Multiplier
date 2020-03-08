@@ -31,31 +31,36 @@ process(Instruct, rselect)
 begin 
     case Instruct is 
 	    when "0000" => -- Load A 
-		    shftCtrl <= '0'; mathCtrl <= "00"; 
-		    writeCtrlReg <= "00"; --Write to accumulate 
-		    writeCtrlln <= "000"; --Write from immediate Immediate <= "0000000000000000" & std logic vector(to_signed(7,15)); --A value 
-		    cease <= '0'; when "0001" => --load B -- can't stop 
+            shftCtrl <= '0'; 
+            mathCtrl <= "000"; 
+		    writeCtrlReg <= "000"; --Write to accumulate 
+            writeCtrlln <= "000"; --Write from immediate 
+            Immediate <= "0000000000000000" & std logic vector(to_signed(7,15)); --A value 
+		    cease <= '0'; when "0001" => --load B  
 	    when “0001” =>  -- Load B
-		    shftCtrl <= '0'; mathCtrl <= "00"; 
-		    writeCtrIReg <= "10"; --Write to B 
+            shftCtrl <= '0'; 
+            mathCtrl <= "000"; 
+		    writeCtrIReg <= "001"; --Write to B 
 		    writeCtrlln <= "000"; --Write from immediate 
 		    Immediate <= std logic_vector(to_signed(10,31)); 
 		    cease <= '0'; -- won't stop 
 	    when "0010" => -- Load 2B
-		    shftCtrl <= '0'; mathCtrl <= "11"; --using inverter 
-		    writeCtrIReg <= "11"; --Write to -B 
+            shftCtrl <= '0'; 
+            mathCtrl <= "100"; --using Double 
+		    writeCtrIReg <= "100"; --Write to 2B 
 		    writeCtrlln <= "001"; --Write from math 
 		    Immediate <= "0000000000000000000000000000000"; 
 		    cease <= '0';  — don’t stopp
 	    when "0011" => -- Invert B 
 		    shftCtrl <= '0'; --L 
-		    mathCtrl <= "01";  --using shifter 
+		    mathCtrl <= "001";  --using shifter 
 		    writeCtrIReg <= "00"; --Write to accumulate 
 		    writeCtrlln <= "001"; --Write from math 
 		    Immediate <= "0000000000000000000000000000000"; 
 		    cease <= '0'; yee shall not stop 
 	    when "0100" => -- Invert 2B
-		    shftCtrl <= '1'; --R mathCtrl <= "01"; --using shifter 
+            shftCtrl <= '1'; --R 
+            mathCtrl <= "001"; --using shifter 
 		    writeCtrIReg <= "00"; --Write to accumulate 
 		    writeCtrlln <= "001"; --Write from math 
 		    Immediate <= "0000000000000000000000000000000"; 
