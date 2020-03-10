@@ -36,7 +36,7 @@ begin
 			AccReg <= toWrite; 
 	    end if; 
 	    if (writeCtrlReg = "001") then 
-		    Add Reg <= toWrite; 
+		    AddReg <= toWrite; 
 	    end if; 
 	    if (writeCtrlReg = "010") then 
 		    BplusReg <= toWrite; 
