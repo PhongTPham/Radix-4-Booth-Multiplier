@@ -13,7 +13,7 @@ use IEEE.STD LOGIC 1164.ALL;
  use ieee.numeric std.all; 
 entity ControlModule is
 	port(Instruct: IN std_logic_vector(3 downto 0);
-	Rselect: IN std_logic_vector(1 downto 0);
+	Rselect: IN std_logic_vector(2 downto 0);
 	shftCtrl: OUT std_logic; --Controls in which direction to shift 
 	mathCtrl: OUT std_logic_vector(1 downto 0); --Controls which math module the register output 
 	goes to 
@@ -29,40 +29,98 @@ begin
 
 process(Instruct, rselect) 
 begin 
+
+    -- mathCtrl
+        -- "000" "0000000000000000000000000000000" 
+        -- "001"  Sout
+        -- "010"  Aout
+        -- "011"  Iout
+        -- "100" Dout
+        -- "others"  DIout
+    -- mathCtrlReg
+        -- "000" accumulate
+        -- "001" addreg
+        -- "010" BplusReg
+        -- "011" BminusReg
+        -- "100" DBplusReg
+        -- "101" DBminusReg
+    -- mathCtrlIn
+        -- "000" immediate
+        -- "001" Math Data
+        -- "010" BplusReg 
+        -- "011" BminusReg
+	    -- "100" DBplusReg; 
+        -- "101" DBminusReg;
+        -- "others" "0000000000000000000000000000000"
     case Instruct is 
 	    when "0000" => -- Load A 
             shftCtrl <= '0'; 
             mathCtrl <= "000"; 
-		    writeCtrlReg <= "000"; --Write to accumulate 
-            writeCtrlln <= "000"; --Write from immediate 
-            Immediate <= "0000000000000000" & std logic vector(to_signed(7,15)); --A value 
-		    cease <= '0'; when "0001" => --load B  
+		    writeCtrlReg <= "000"; -- Write to accumulate 
+            writeCtrlln <= "000"; -- Write from immediate 
+            Immediate <= "0000000000000000" & std logic vector(to_signed(7,15)); -- A value 
+		    cease <= '0'; -- we aint ever stopping         
 	    when “0001” =>  -- Load B
             shftCtrl <= '0'; 
             mathCtrl <= "000"; 
-		    writeCtrIReg <= "001"; --Write to B 
-		    writeCtrlln <= "000"; --Write from immediate 
+		    writeCtrlReg <= "010"; -- Write to B 
+		    writeCtrlln <= "000"; -- Write from immediate 
 		    Immediate <= std logic_vector(to_signed(10,31)); 
-		    cease <= '0'; -- won't stop 
+		    cease <= '0'; -- can't stop 
 	    when "0010" => -- Load 2B
             shftCtrl <= '0'; 
-            mathCtrl <= "100"; --using Double 
-		    writeCtrIReg <= "100"; --Write to 2B 
-		    writeCtrlln <= "001"; --Write from math 
+            mathCtrl <= "100"; -- using Double 
+		    writeCtrlReg <= "100"; -- Write to 2B 
+		    writeCtrlln <= "001"; -- Write from math 
 		    Immediate <= "0000000000000000000000000000000"; 
-		    cease <= '0';  — don’t stopp
+		    cease <= '0';  -- no hold up
 	    when "0011" => -- Invert B 
-		    shftCtrl <= '0'; --L 
-		    mathCtrl <= "001";  --using shifter 
-		    writeCtrIReg <= "00"; --Write to accumulate 
-		    writeCtrlln <= "001"; --Write from math 
+		    shftCtrl <= '0';
+		    mathCtrl <= "011";  -- using Invert 
+		    writeCtrlReg <= "011"; -- Write to -B 
+		    writeCtrlln <= "001"; -- Write from math 
 		    Immediate <= "0000000000000000000000000000000"; 
-		    cease <= '0'; yee shall not stop 
+		    cease <= '0'; -- a hard go from me dawg
 	    when "0100" => -- Invert 2B
-            shftCtrl <= '1'; --R 
+            shftCtrl <= '0';  
+            mathCtrl <= "100"; -- using Double 
+		    writeCtrlReg <= "101"; -- Write to -2B 
+		    writeCtrlln <= "001"; -- Write from math 
+		    Immediate <= "0000000000000000000000000000000"; 
+		    cease <= '0'; -- keep going probably
+		when "0101" => -- Shift L
+	        shftCtrl <= '0'; --L 
+		    mathCtrl <= "001";  -- using shifter 
+		    writeCtrIReg <= "000"; -- Write to accumulate 
+		    writeCtrlln <= "001"; -- Write from math 
+		    Immediate <= "0000000000000000000000000000000"; 
+		    cease <= '0'; -- not yet
+        when "0110" => --Check
+	        shftCtrl <= '0'; 
+            mathCtrl <= "000"; 
+		    writeCtrIReg <= "001"; --Write to add 
+		    if Rselect = "000" then 
+			    writeCtrlln <= "111"; --Write from 0 
+		    elsif Rselect = "10" then 
+			    writeCtrlln <= "011"; --Write from -B 
+		    else 
+			    writeCtrlln <= "010";  --Write from B 
+		    end if; 
+			Immediate <= "0000000000000000000000000000000"; 
+			cease <= '0';  -- whatever I don't even care any mor            
+        when "1000" => -- Shift R
+	        shftCtrl <= '1'; --R 
             mathCtrl <= "001"; --using shifter 
-		    writeCtrIReg <= "00"; --Write to accumulate 
+		    writeCtrIReg <= "000"; --Write to accumulate 
 		    writeCtrlln <= "001"; --Write from math 
 		    Immediate <= "0000000000000000000000000000000"; 
-		    cease <= '0'; -- please oh please don't stop 
-		when "0101" => -- Shift L
+		    cease <= '0'; -- wait for the drop
+        when "
+        when "others" => -- Terminate Program
+            shftCtrl <= '0';
+            mathCtrl <= "000";
+            writeCtrlReg <= "000";
+            Immediate <= "0000000000000000000000000000000";
+            cease <= '1'; -- End its suffering
+        end process;
+        end Behavioral;
