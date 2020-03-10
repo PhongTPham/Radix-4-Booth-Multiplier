@@ -111,7 +111,7 @@ begin
         when "010" => MathData <= Aout; 
         when "011" => MathData <= Iout;
         when "100" => MathData <= Dout;
-        when others => MathData <= DIout;
+        when "others" => MathData <= DIout;
     end case; 
 end process; 
 
