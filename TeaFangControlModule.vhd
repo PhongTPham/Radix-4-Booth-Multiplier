@@ -120,7 +120,7 @@ begin
             Immediate <= "0000000000000000000000000000000"; 
             cease <= '0'; -- wait for the drop
         when "
-        when "others" => -- Terminate Program
+        when others => -- Terminate Program
             shftCtrl <= '0';
             mathCtrl <= "000";
             writeCtrlReg <= "001";
