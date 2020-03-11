@@ -26,7 +26,7 @@ begin
         when "010" => Rselect <= "010"; --Add 2B
         when "011" => Rselect <= "011"; -- Add -B
         when "100" => Rselect <= "100"; -- Add B
-        when "others" => Rselect <= "000"; --Add 0
+        when others => Rselect <= "000"; --Add 0
     end case;
 end process;
 
