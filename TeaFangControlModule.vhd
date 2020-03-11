@@ -95,7 +95,7 @@ begin
             writeCtrlIn <= "001"; -- Write from math 
             Immediate <= "0000000000000000000000000000000"; 
             cease <= '0'; -- not yet
-        when "0110" => --Check
+        when "0110" => -- Check
             shftCtrl <= '0'; 
             mathCtrl <= "000"; 
             writeCtrlReg <= "001"; -- Write to add 
@@ -108,18 +108,24 @@ begin
             elsif Rselect = "011" then 
                 writeCtrlIn <= "011"; -- Write from -B
             else
-                writeCtrlIn <= "010";  --Write from B 
+                writeCtrlIn <= "010";  -- Write from B 
             end if; 
             Immediate <= "0000000000000000000000000000000"; 
-            cease <= '0';  -- whatever I don't even care any more           
+            cease <= '0';  -- whatever I don't even care any more  
+        when "0111" => -- Add 
+            shftCtrl <= '0'
+            mathCtrl <= "010"; -- using adder
+            writeCtrlReg <= "000"; -- Write to accumulate 
+            writeCtrlIn <= "001"; -- Write from math 
+            Immediate <= "0000000000000000000000000000000"; 
+            cease <= '0'; -- wait for the drop            
         when "1000" => -- Shift R
             shftCtrl <= '1'; --R 
-            mathCtrl <= "001"; --using shifter 
-            writeCtrlReg <= "000"; --Write to accumulate 
-            writeCtrlIn <= "001"; --Write from math 
+            mathCtrl <= "001"; -- using shifter 
+            writeCtrlReg <= "000"; -- Write to accumulate 
+            writeCtrlIn <= "001"; -- Write from math 
             Immediate <= "0000000000000000000000000000000"; 
             cease <= '0'; -- wait for the drop
-        when "
         when others => -- Terminate Program
             shftCtrl <= '0';
             mathCtrl <= "000";
