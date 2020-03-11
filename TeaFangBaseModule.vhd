@@ -73,7 +73,6 @@ End Component;
 Component CheckModule
     port(Racc:IN std_logic_vector(30 down to 0);
         Rselect:OUT std_logic_vector(2 downto 0));
-Add(01 +B,10 -B,00 0)
 End Component;
 
 Component ShifterModule
