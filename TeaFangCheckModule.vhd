@@ -25,10 +25,14 @@ begin
 
 process(Racc)
 begin
-	case Racc(1 downto 0) is
-		when "01" => Rselect <= "01"; --Add B
-		when "10" => Rselect <= "10"; --Add -B
-		when others => Rselect <= "00"; --Add 0
+	case Racc(2 downto 0) is
+		when "001" => Rselect <= "001"; --Add B
+		when "010" => Rselect <= "010"; --Add B
+		when "011" => Rselect <= "011"; --Add B
+		when "100" => Rselect <= "100"; --Add B
+		when "101" => Rselect <= "101"; --Add B
+		when "110" => Rselect <= "110"; --Add -B
+		when others => Rselect <= "000"; --Add 0
 	end case;
 end process;
 
