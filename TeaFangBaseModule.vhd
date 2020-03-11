@@ -48,7 +48,7 @@ Component InstructionMemory
 End Component;
 
 --Sends out the appropriate control signals to execute the instruction
-component ControlMOdule
+component ControlModule
     port(Instruct:IN std_logic_vector(3 downto 0);
         Rselect:IN std_logic_vector(2 downto 0); --Which registers go into add module
         shftCtrl:OUT std_logic; --Which Direction does the shift occur
