@@ -54,7 +54,6 @@ component ControlMOdule
         shftCtrl:OUT std_logic; --Which Direction does the shift occur
         mathCtrl:OUT std_logic_vector(2 downto 0); --Which math module do register module's go to
         writeCtrlReg:OUT std_logic_vector(2 downto 0); --Which register is writen to
-        -- TODO: figure out how many write inputs we need to read from
         writeCtrlIn:OUT std_logic_vector(2 downto 0); --selects write input either from registers or math module
         Immediate:OUT std_logic;
         Cease:OUT std_logic);
@@ -73,7 +72,7 @@ End Component;
 
 Component CheckModule
     port(Racc:IN std_logic_vector(30 down to 0);
-        Rselect:OUT std_logic_vector(1 downto 0));
+        Rselect:OUT std_logic_vector(2 downto 0));
 Add(01 +B,10 -B,00 0)
 End Component;
 
