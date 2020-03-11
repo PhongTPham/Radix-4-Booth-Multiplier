@@ -88,7 +88,7 @@ Component InvertModule
 End Component;
 
 signal Racc, Radd, Bplus, Sout, Aout, Iout, MathData, immediate, PC:std_logic_vector(30 downto 0);
-signal writeCtrlREg, Rselect, MathCtrl:std_logic_vector(1 downto 0);
+signal writeCtrlReg, Rselect, MathCtrl:std_logic_vector(2 downto 0);
 signal ShftCtrl, cease:std_logic;
 
 begin
