@@ -8,17 +8,17 @@
 -- Tool versions: 
 -- Description: Brings in the instruction and decides what each control signal
 --			should be
+-------------------------------------------------------------------------------
 library IEEE; 
-use IEEE.STD LOGIC 1164.ALL;
- use ieee.numeric std.all; 
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.numeric_std.all; 
 entity ControlModule is
     port(Instruct: IN std_logic_vector(3 downto 0);
     Rselect: IN std_logic_vector(2 downto 0);
     shftCtrl: OUT std_logic; --Controls in which direction to shift 
     mathCtrl: OUT std_logic_vector(1 downto 0); --Controls which math module the register output 
-    goes to 
     writeCtrlReg: OUT std_logic_vector(1 downto 0); --Controls which register is written to 
-    writeCtrlln: OUT std_logic_vector(2 downto 0); -- Selects the write input, either from a register or the math modules 
+    writeCtrlIn: OUT std_logic_vector(2 downto 0); -- Selects the write input, either from a register or the math modules 
     Immediate: OUT std_logic_vector(30 downto 0); -- Sent A, B value 
     Cease: OUT std_logic); 
 end ControlModule; 
@@ -58,14 +58,14 @@ begin
             mathCtrl <= "000"; 
             writeCtrlReg <= "000"; -- Write to accumulate 
             writeCtrlIn <= "000"; -- Write from immediate 
-            Immediate <= "0000000000000000" & std logic vector(to_signed(7,15)); -- A value 
+            Immediate <= "0000000000000000" & std_logic_vector(to_signed(7,15)); -- A value 
             cease <= '0'; -- we aint ever stopping         
-        when “0001” =>  -- Load B
+        when "0001" =>  -- Load B
             shftCtrl <= '0'; 
             mathCtrl <= "000"; 
             writeCtrlReg <= "010"; -- Write to B 
             writeCtrlIn <= "000"; -- Write from immediate 
-            Immediate <= std logic_vector(to_signed(10,31)); 
+            Immediate <= std_logic_vector(to_signed(10,31)); 
             cease <= '0'; -- can't stop 
         when "0010" => -- Load 2B
             shftCtrl <= '0'; 
@@ -113,7 +113,7 @@ begin
             Immediate <= "0000000000000000000000000000000"; 
             cease <= '0';  -- whatever I don't even care any more  
         when "0111" => -- Add 
-            shftCtrl <= '0'
+            shftCtrl <= '0';
             mathCtrl <= "010"; -- using adder
             writeCtrlReg <= "000"; -- Write to accumulate 
             writeCtrlIn <= "001"; -- Write from math 
@@ -133,5 +133,6 @@ begin
             writeCtrlIn <= "000";
             Immediate <= "0000000000000000000000000000000";
             cease <= '1'; -- End its suffering
+end case;
 end process;
 end Behavioral;
