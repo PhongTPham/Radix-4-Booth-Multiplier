@@ -5,12 +5,13 @@
 -- Module Name: InstructionMemory - Behavioral 
 -- Project Name: TeaFang Booth Radix-4
 -- Description: Outputs an instruction for each program count. 
+------------------------------------------------------
 library IEEE; 
-use IEEESTD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_1164.ALL;
 
 entity InstructionMemory is 
-    Port(PC in STD_LOGIC_VECTOR (30 downto 0); 
-        Instruct : out STD LOGIC VECTOR (3 downto 0)); 
+    port(PC: in STD_LOGIC_VECTOR (30 downto 0); 
+        Instruct : out STD_LOGIC_VECTOR (3 downto 0)); 
 End InstructionMemory; 
 
 architecture Behavioral of InstructionMemory is 
