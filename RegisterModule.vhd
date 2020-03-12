@@ -6,9 +6,9 @@
 -- Module Name: RegisterMemory - Behavioral 
 -- Project Name: Booths Hardware 
 -- Description: Stores and writes to the internal registers 
-— 
+-----------------------------------------------------------
 library IEEE; 
-use IEEE.STD LOGIC 1164.ALL; 
+use IEEE.STD_LOGIC_1164.ALL; 
 
 entity RegisterMemory is
 port(clock: IN std_logic;
@@ -18,7 +18,7 @@ port(clock: IN std_logic;
     Immediate: IN std_logic_vector(30 downto 0); --Immediate data to load 
     Racc: OUT std_logic_vector(30 downto 0); --Acc register output 
     Radd: OUT std_logic_vector(30 downto 0); --Add register output 
-    Bplus: OUT std_logic_vector(30 downto 0)); --Bplus register output 
+    Bplus: OUT std_logic_vector(30 downto 0); --Bplus register output 
     DBplus: OUT std_logic_vector(30 downto 0)); --B2plus register output 
 end RegisterMemory; 
 
@@ -59,7 +59,7 @@ process(writeCtrlln, Immediate, MathData, BplusReg, BminusReg)
 begin 
     case writeCtrlln is 
         when "000" => toWrite <= Immediate; 
-        when "001" => toWrite <= Math Data; 
+        when "001" => toWrite <= MathData; 
         when "010" => toWrite <= BplusReg; 
         when "011" => toWrite <= BminusReg;
         when "100" => toWrite <= DBplusReg; 
