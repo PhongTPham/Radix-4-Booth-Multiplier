@@ -7,13 +7,14 @@
 --Project Name: Booth's Radix-4 Hardware
 -- Description: Checks last two bits in the accumlator register and outputs a control signal that follows booth's
 --		algorithm
-libraray IEEE;
+-----------------------------------------------------------------------------------
+library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 entity CheckModule is
     port(Racc: IN std_logic_vector(30 downto 0); 
     Rselect: OUT std_logic_vector(2 downto 0)); -- Add ()
-end CheckModule
+end CheckModule;
 
 architecture Behavioral of CheckModule is
 
