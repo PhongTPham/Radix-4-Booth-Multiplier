@@ -100,14 +100,20 @@ begin
             writeCtrlReg <= "001"; -- Write to add 
             if Rselect = "000" then 
                 writeCtrlIn <= "111"; -- Write from 0 
-            elsif Rselect = "001" then
-                writeCtrlIn <= "101"; -- Write from -2B
+            elsif Rselect = "001" then 
+                writeCtrlIn <= "010"; -- Write from B
             elsif Rselect = "010" then 
-                writeCtrlIn <= "100"; -- Write from 2B
+                writeCtrlIn <= "010"; -- Write from B					 
             elsif Rselect = "011" then 
+                writeCtrlIn <= "100"; -- Write from 2B
+            elsif Rselect = "100" then
+                writeCtrlIn <= "101"; -- Write from -2B
+            elsif Rselect = "101" then 
+                writeCtrlIn <= "011"; -- Write from -B
+            elsif Rselect = "110" then 
                 writeCtrlIn <= "011"; -- Write from -B
             else
-                writeCtrlIn <= "010";  -- Write from B 
+                writeCtrlIn <= "111";  -- Write from 0
             end if; 
             Immediate <= "0000000000000000000000000000000"; 
             cease <= '0';  -- whatever I don't even care any more  
