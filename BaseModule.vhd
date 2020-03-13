@@ -25,9 +25,9 @@ entity top_level is
         LEDouts:OUT std_logic_vector(16 downto 0));
 
     attribute LOC:string;
-    attribute LOC of clk: signal is "P89";
-    attribute LOC of reset: signal is "P15";
-    attribute LOC of LEDouts: signal is "P32 P33 P34 P35 P36 P60 P40 P41 P47 P48 P49 P 58 P98 P95 P94 P92 P91";
+    attribute LOC of clk: signal is "A10";
+    attribute LOC of reset: signal is "N9";
+    attribute LOC of LEDouts: signal is "L14 L16 K16 K15 J13 K14 J12 J11 J16 J14 D6 C6 F7 E6 A4 B5";
 
 end top_level;
 
