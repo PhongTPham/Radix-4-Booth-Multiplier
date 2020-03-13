@@ -10,14 +10,14 @@
 --------------------------------
 
 library IEEE; 
-use IEEE.STD LOGIC 1164.ALL; 
-use IEEE.NUMERIC STD.ALL; 
+use IEEE.STD_LOGIC_1164.ALL; 
+use IEEE.NUMERIC_STD.ALL; 
 
 entity ProgramCounter is 
     port(clock: IN std_logic; 
 
     cease: IN std_logic; 
-    reset: IN std _logic; 
+    reset: IN std_logic; 
     PC: OUT std_logic_vector(30 downto 0));
 End ProgramCounter; 
 
